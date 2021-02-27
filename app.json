@@ -1,0 +1,12 @@
+{
+  "name": "warwickhack2021",
+  "displayName": "warwickhack2021",
+  "expo": {
+    "name": "warwickhack2021",
+    "slug": "warwickhack2021",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
