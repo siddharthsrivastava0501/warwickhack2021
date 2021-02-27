@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, ImageBackground} from 'react-native';
 import { Button, Icon} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons';
 
-export default function login() {
+export default function Login() {
   return (
     <View style={styles.container}>
         <Text style={styles.title}> Name of app</Text>
