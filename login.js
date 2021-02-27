@@ -1,11 +1,10 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground} from 'react-native';
 import { Button, Icon} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons';
 
-import Profile from './Profile';
-
-export default function App() {
+export default function login() {
   return (
     <View style={styles.container}>
         <Text style={styles.title}> Name of app</Text>
@@ -37,9 +36,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 70,
-    marginLeft: 30,
-    fontFamily: 'Inconsolata'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     color: 'black',
