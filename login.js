@@ -16,12 +16,12 @@ export default function Login({navigation}) {
     const submit = (data) => {
         console.log(data, data.password)
         auth().signInWithEmailAndPassword(data.Email, data.password)
-        .then(() => {
+        .then((user) => {
             console.log("Successful sign in");
-            navigation.navigate("Home");
+            navigation.navigate("Home", {params: {user: user}});
         })
         .catch((error) => {
-            console.log('That email address is invalid!');
+            console.log(error);
         })
     }
 
@@ -55,7 +55,7 @@ export default function Login({navigation}) {
                             label="Password"
                             autoCapitalize="none"
                             style={styles.input}
-                            //secureTextEntry
+                            secureTextEntry
                             value={value}
                             onChangeText={(value) => onChange(value)}
                         />

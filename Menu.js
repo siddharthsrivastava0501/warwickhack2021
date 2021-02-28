@@ -3,15 +3,22 @@ import React from 'react';
 import { StyleSheet, Text, ScrollView, View, Image, Alert,Button, ImageButton, ImageBackground, Platform } from 'react-native';
 import { NativeRouter, Route, Link } from "react-router-native";
 import { IconButton } from 'react-native-paper';
+import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+
+function logout() {
+    auth().signOut()
+    .then(() => console.log('User signed out!'));
+}
 export default class App extends React.Component {
     getData() {
         return fetch("https://www.themealdb.com/api/json/v1/1/random.php")
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 return response.json();
             })
             .then(data => {
+                this.setState({recipe: data})
                 var database = data.meals[0];
                 var ingredients = [];
                 var name;
@@ -52,12 +59,27 @@ export default class App extends React.Component {
         var ingredients = this.state.ingredients[item];
         return ingredients;
     }
-    render() {
 
+    liked = () => {
+        firestore()
+        .collection('users')
+        .doc(this.props.route.params.user.uid)
+        .update({
+            savedRecipes: firestore.FieldValue.arrayUnion(JSON.stringify(this.state.recipe)),
+        })
+        .then(() => this.data());
+    }
+
+    render() {
+        const {navigation} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
-                <IconButton size={36} style={styles.iconButton} onPress={() => console.log('Pressed')} icon={{uri: 'https://static.thenounproject.com/png/1236015-200.png'}}
+                <Button
+            title="Log out"
+            onPress={() => logout()}
+          />
+                <IconButton size={36} style={styles.iconButton} onPress={() => navigation.navigate("Profile")} icon={{uri: 'https://static.thenounproject.com/png/1236015-200.png'}}
                         title="View profile"
                         color="black"/>
                     <View style={styles.seeImage}>
@@ -114,6 +136,7 @@ export default class App extends React.Component {
                 <View style={styles.innerContainer2}>
                     <IconButton size={80} icon={{uri: 'https://static.thenounproject.com/png/490104-200.png'}}
                         title="Like"
+                        onPress={() => this.liked()}
                         />
                 </View>
                 <StatusBar style="auto" />

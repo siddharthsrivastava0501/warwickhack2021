@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import auth from '@react-native-firebase/auth'
 
 import { Button, Icon} from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+
 //import Icon from 'react-native-vector-icons';
 
 import Profile from './Profile';
@@ -30,8 +32,11 @@ export default function App() {
         return auth().onAuthStateChanged(onAuthStateChanged);
     }, [])
 
-    if (!user) {
-        console.log("Not logged in")
+    if (loading) {
+      return <ActivityIndicator />
+    }
+
+    if (!user && !loading) {
         return (
           <NavigationContainer>
             <Stack.Navigator initialRouteName="Landing" screenOptions={{headerShown: false}}>
@@ -42,18 +47,17 @@ export default function App() {
           </NavigationContainer>
         )
     }
-    console.log("LOGGED IN")
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login" screenOptions={{
+            <Stack.Navigator initialRouteName="Home" screenOptions={{
                   headerShown: false
                 }}>
                 <Stack.Screen name="Landing" component={Landing} /> 
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Profile" component={Profile} />
-                <Stack.Screen name="Home" component={Menu} />
+                <Stack.Screen name="Profile" component={Profile} initialParams={{'user': user}}/>
+                <Stack.Screen name="Home" component={Menu} initialParams={{'user': user}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

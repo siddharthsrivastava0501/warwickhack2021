@@ -1,7 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground} from 'react-native';
 import { Button, Icon} from 'react-native-elements';
+import auth from '@react-native-firebase/auth'
 //import Icon from 'react-native-vector-icons';
+
+function logout() {
+    auth().signOut()
+    .then(() => console.log('User signed out!'));
+}
 
 export default function Login({ navigation }) {
   return (
@@ -19,6 +25,12 @@ export default function Login({ navigation }) {
             onPress={() => navigation.navigate("Register")}
           />
       </View>
+      {/* <View style={styles.button2Container}>
+          <Button
+            title="Log out"
+            onPress={() => logout()}
+          />
+      </View> */}
       <View style={styles.iconContainer}>
       <Icon
               name="trash-bin"
@@ -55,7 +67,4 @@ const styles = StyleSheet.create({
     bottom: 150,
     left: 50,
   },
-  iconContainer: {
-    
-  }
 });
