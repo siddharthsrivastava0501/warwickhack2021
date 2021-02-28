@@ -1,6 +1,6 @@
 # Soul Food
 
-Soul food is a cross-platform app-based based, where you can find food that you like (contributed by other people, as well as an external API) and it adds it to your profile for future reference. 
+Soul food is a cross-platform app where you can find food that you like (contributed by other people, as well as an external API) and it adds it to your profile for future reference. 
 
 Built using React-Native, it _should_ run on both iOS and Android, however, no testing was done using Android studio, so use at your own risk. 
 
