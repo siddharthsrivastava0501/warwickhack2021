@@ -19,6 +19,7 @@ cd ios && pod install
 4. ```cd``` into the main folder and run ```npx react-native run-ios```
 
 If you are running on Android, I have no idea how it works.
+
 5. Common issues:
 - Podfile issues:
 Delete the ```podfile.lock``` and run ```pod install```.
@@ -30,6 +31,8 @@ We use React-Native as our front end, Firebase as our backend and ```react-nativ
 
 The app fetches primarily from the ```themealdb``` API, however we aim to add functionality in the future where users can submit their own recipes.
 The JSON is parsed and the recipe is rendered on screen. If the user likes the recipe, it is added to their saved recipes, if not it is simply discarded for a new recipe. 
+
+It is currently no available in the App Store or the Play Store.
 
 ## Video
 [YouTube](https://youtu.be/BJo4mL2fGrY)
