@@ -609,6 +609,8 @@ PODS:
     - React-Core
   - RNVectorIcons (8.1.0):
     - React-Core
+  - RNVectorIcons (8.1.0):
+    - React-Core
   - UMAppLoader (1.4.0)
   - UMBarCodeScannerInterface (5.4.0)
   - UMCameraInterface (5.4.0)
