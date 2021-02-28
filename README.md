@@ -16,8 +16,9 @@ This should install a lot of stuff.
 ```bash
 cd ios && pod install
 ```
+4. ```cd``` into the main folder and run ```npx react-native run-ios```
 If you are running on Android, I have no idea how it works.
-4. Common issues:
+5. Common issues:
 - Podfile issues:
 Delete the ```podfile.lock``` and run ```pod install```.
 - Firebase issues: contact us.
