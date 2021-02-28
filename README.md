@@ -30,7 +30,7 @@ The app fetches primarily from the ```themealdb``` API, however we aim to add fu
 The JSON is parsed and the recipe is rendered on screen. If the user likes the recipe, it is added to their saved recipes, if not it is simply discarded for a new recipe. 
 
 ## Video
-[YouTube](https://www.youtube.com/watch?v=XFFghWW_8yA&t=1s&ab_channel=SiddharthSrivastava)
+[YouTube]https://youtu.be/BJo4mL2fGrY)
  
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
