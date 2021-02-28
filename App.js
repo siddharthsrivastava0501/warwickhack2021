@@ -6,7 +6,7 @@ import { Button, Icon} from 'react-native-elements';
 import Profile from './Profile';
 import Landing from './Landing';
 import Menu from './Menu';
-import Login from './Login';
+import Login from './login';
 
 export default function App() {
     return (
