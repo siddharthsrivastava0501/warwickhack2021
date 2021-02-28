@@ -1,23 +1,60 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground} from 'react-native';
+import auth from '@react-native-firebase/auth'
+
 import { Button, Icon} from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 //import Icon from 'react-native-vector-icons';
 
 import Profile from './Profile';
 import Landing from './Landing';
+import Login from './Login';
+import Register from './Register';
 import Menu from './Menu';
-import Login from './login';
+
+const Stack = createStackNavigator();
 
 export default function App() {
+
+    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState()
+
+    function onAuthStateChanged(user) {
+        console.log(user);
+        setUser(user);
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        return auth().onAuthStateChanged(onAuthStateChanged);
+    }, [])
+
+    if (!user) {
+        console.log("Not logged in")
+        return (
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Landing" screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Landing" component={Landing} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Register" component={Register} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        )
+    }
+    console.log("LOGGED IN")
+
     return (
-        <Profile />
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login" screenOptions={{
+                  headerShown: false
+                }}>
+                <Stack.Screen name="Landing" component={Landing} /> 
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="Home" component={Menu} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-}});

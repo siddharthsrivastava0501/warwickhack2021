@@ -1,5 +1,5 @@
 import React, {useState, Component} from 'react';
-import {Text, ActivityIndicator} from 'react-native';
+import {Text, ActivityIndicator, StyleSheet} from 'react-native';
 import {Title, Card, Chip, Paragraph} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import { ScrollView } from 'react-native';
@@ -8,7 +8,7 @@ function renderRecipe(props) {
     var imageURL = props.strMealThumb;
     imageURL = "{"+'"uri" '+':"'+imageURL+'"'+"}";
     return (
-        <Card style={{width: 360}}>
+        <Card key={imageURL} style={{width: 400, marginBottom: 30}}>
             <Card.Cover source={JSON.parse(imageURL)} />
             <Card.Content>
                 <Card.Title title={props.strMeal} /> 
@@ -38,10 +38,10 @@ class Profile extends Component {
             return  <ActivityIndicator size="large" color="#00ff00" />
         } else {
             var data = this.state.user.savedRecipes;
-            console.log(JSON.parse(data[0]).meals[0])
+            console.log(this.state.user.email)
             return (
-                <ScrollView>
-                    <Title> {this.state.user['name']} </Title>
+                <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Title> {this.state.user['email']} </Title>
                     <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
                     {data.map((element) => renderRecipe(JSON.parse(element).meals[0]))}
                 </ScrollView>
@@ -51,5 +51,12 @@ class Profile extends Component {
         
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
+})
 
 export default Profile;

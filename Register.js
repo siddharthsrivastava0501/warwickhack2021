@@ -13,30 +13,35 @@ export default function Login({navigation}) {
         };
     };;
 
-    const submit = (data) => {
-        console.log(data, data.password)
-        auth().signInWithEmailAndPassword(data.Email, data.password)
-        .then(() => {
-            console.log("Successful sign in");
-            navigation.navigate("Home");
-        })
-        .catch((error) => {
-            console.log('That email address is invalid!');
-        })
-    }
+    const submit = (data) => console.log(data)
 
     return (
         <View style={styles.container}>
-            <Title style={{textAlign: 'center'}}>Log in</Title>
+            <Title style={{textAlign: 'center'}}>Register</Title>
             <Controller 
                 control={control}
                 defaultValue=""
-                name="Email"
+                name="nickname"
                 render = {({onChange, value}) => (
                     <>
                         <TextInput 
-                            label="Email"
-                            autoCapitalize="none"
+                            label="Nickname"
+                            style={styles.input}
+                            value={value}
+                            onChangeText={(value) => onChange(value)}
+                        />
+                    </>
+                )}
+                rules={{required: true}}
+            />
+            <Controller 
+                control={control}
+                defaultValue=""
+                name="username"
+                render = {({onChange, value}) => (
+                    <>
+                        <TextInput 
+                            label="Username"
                             style={styles.input}
                             value={value}
                             onChangeText={(value) => onChange(value)}
@@ -53,9 +58,8 @@ export default function Login({navigation}) {
                     <>
                         <TextInput 
                             label="Password"
-                            autoCapitalize="none"
                             style={styles.input}
-                            //secureTextEntry
+                            secureTextEntry
                             value={value}
                             onChangeText={(value) => onChange(value)}
                         />
@@ -68,14 +72,14 @@ export default function Login({navigation}) {
                 onPress={handleSubmit(submit)}
                 style={styles.button}
             >
-                Log in
+                Register
             </Button>
             <Button
                 mode="contained"
-                onPress={() => navigation.navigate("Register")}
+                onPress={() => navigation.navigate("Login")}
                 style={styles.button}
             >
-                Don't have an account? Sign up here
+                Already have an account? 
             </Button>
         </View>
     );
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
       },
       input: {
         backgroundColor: '#e6f8e8',
-        height: 70,
+        height: 40,
         padding: 10,
         marginTop: 20,
         borderRadius: 4,
