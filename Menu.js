@@ -207,9 +207,12 @@ const styles = StyleSheet.create({
         left:'165%'
     },
     name: {
+        textAlign:'center',
+        width:300,
+        height: 40,
         position:'absolute',
-        bottom:225,
-        fontSize: 16
+        bottom:200,
+        fontSize: 16,
     },
     line: {
         position:'absolute',

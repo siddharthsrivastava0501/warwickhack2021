@@ -1,5 +1,5 @@
 import React, {useState, Component} from 'react';
-import {Text, ActivityIndicator, StyleSheet} from 'react-native';
+import {View, Text, ActivityIndicator, StyleSheet, Button} from 'react-native';
 import {Title, Card, Chip, Paragraph} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import { ScrollView } from 'react-native';
@@ -40,11 +40,14 @@ class Profile extends Component {
             var data = this.state.user.savedRecipes;
             console.log(this.state.user.email)
             return (
+                <View style={styles.container}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Title> {this.state.user['email']} </Title>
+                    <Title> {this.state.user['name']} </Title>
                     <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
                     {data.map((element) => renderRecipe(JSON.parse(element).meals[0]))}
                 </ScrollView>
+                </View>
+                
                 
             )
         }
@@ -55,7 +58,7 @@ class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor:'#dcfae6',
     },
 })
 
