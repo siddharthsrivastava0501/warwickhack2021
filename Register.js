@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore'
 import {useForm, Controller} from 'react-hook-form';
 import {TextInput, Switch, Button, Title} from 'react-native-paper';
 
@@ -14,11 +15,17 @@ export default function Register({navigation}) {
     };;
 
     const submit = (data) => {
-        console.log(data.Email, data.password)
         auth().createUserWithEmailAndPassword(data.Email, data.password)
+        .then((user) => {
+            console.log("USER",user.user.uid);
+            firestore().collection('users').doc(user.user.uid).set({
+                name: data.nickname,
+                email: data.Email,
+                savedRecipes: [""]
+            })
+        })
         .then(() => {
-        console.log("Successful sign in");
-        navigation.navigate("Home");
+            navigation.navigate("Home");
         })
         .catch((error) => {
             console.log(error);

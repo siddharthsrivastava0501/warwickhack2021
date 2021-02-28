@@ -37,7 +37,6 @@ export default function App() {
     }
 
     if (!user && !loading) {
-        console.log("Not logged in")
         return (
           <NavigationContainer>
             <Stack.Navigator initialRouteName="Landing" screenOptions={{headerShown: false}}>
@@ -48,7 +47,6 @@ export default function App() {
           </NavigationContainer>
         )
     }
-    console.log("LOGGED IN")
 
     return (
         <NavigationContainer>
@@ -59,7 +57,7 @@ export default function App() {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="Profile" component={Profile} initialParams={{'user': user}}/>
-                <Stack.Screen name="Home" component={Menu} />
+                <Stack.Screen name="Home" component={Menu} initialParams={{'user': user}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

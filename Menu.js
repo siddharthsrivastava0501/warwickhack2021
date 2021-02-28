@@ -18,6 +18,7 @@ export default class App extends React.Component {
                 return response.json();
             })
             .then(data => {
+                this.setState({recipe: data})
                 var database = data.meals[0];
                 var ingredients = [];
                 var name;
@@ -58,6 +59,17 @@ export default class App extends React.Component {
         var ingredients = this.state.ingredients[item];
         return ingredients;
     }
+
+    liked = () => {
+        firestore()
+        .collection('users')
+        .doc(this.props.route.params.user.uid)
+        .update({
+            savedRecipes: firestore.FieldValue.arrayUnion(JSON.stringify(this.state.recipe)),
+        })
+        .then(() => this.data());
+    }
+
     render() {
         const {navigation} = this.props;
         return (
@@ -124,6 +136,7 @@ export default class App extends React.Component {
                 <View style={styles.innerContainer2}>
                     <IconButton size={80} icon={{uri: 'https://static.thenounproject.com/png/490104-200.png'}}
                         title="Like"
+                        onPress={() => this.liked()}
                         />
                 </View>
                 <StatusBar style="auto" />
