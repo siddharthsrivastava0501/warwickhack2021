@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, CircularProgress} from 'react-native';
 import auth from '@react-native-firebase/auth'
 
 import { Button, Icon} from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+
 //import Icon from 'react-native-vector-icons';
 
 import Profile from './Profile';
@@ -46,13 +48,13 @@ export default function App() {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login" screenOptions={{
+            <Stack.Navigator initialRouteName="Home" screenOptions={{
                   headerShown: false
                 }}>
                 <Stack.Screen name="Landing" component={Landing} /> 
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="Profile" component={Profile}/>
                 <Stack.Screen name="Home" component={Menu} />
             </Stack.Navigator>
         </NavigationContainer>

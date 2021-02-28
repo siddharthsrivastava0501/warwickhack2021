@@ -3,7 +3,13 @@ import React from 'react';
 import { StyleSheet, Text, ScrollView, View, Image, Alert,Button, ImageButton, ImageBackground, Platform } from 'react-native';
 import { NativeRouter, Route, Link } from "react-router-native";
 import { IconButton } from 'react-native-paper';
+import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+
+function logout() {
+    auth().signOut()
+    .then(() => console.log('User signed out!'));
+}
 export default class App extends React.Component {
     getData() {
         return fetch("https://www.themealdb.com/api/json/v1/1/random.php")
@@ -53,11 +59,15 @@ export default class App extends React.Component {
         return ingredients;
     }
     render() {
-
+        const {navigation} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
-                <IconButton size={36} style={styles.iconButton} onPress={() => console.log('Pressed')} icon={{uri: 'https://static.thenounproject.com/png/1236015-200.png'}}
+                <Button
+            title="Log out"
+            onPress={() => logout()}
+          />
+                <IconButton size={36} style={styles.iconButton} onPress={() => navigation.navigate("Profile")} icon={{uri: 'https://static.thenounproject.com/png/1236015-200.png'}}
                         title="View profile"
                         color="black"/>
                     <View style={styles.seeImage}>
