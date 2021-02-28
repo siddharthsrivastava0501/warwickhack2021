@@ -67,7 +67,10 @@ export default class App extends React.Component {
         .update({
             savedRecipes: firestore.FieldValue.arrayUnion(JSON.stringify(this.state.recipe)),
         })
-        .then(() => this.data());
+        .then(() => this.data())
+        .catch((error) => {
+            console.log(error)
+        });
     }
 
     render() {
@@ -226,7 +229,7 @@ const styles = StyleSheet.create({
         margin: 30,
     },
     iconButton: {
-        top:-23,
+        top:-50,
         left:'165%'
     },
     name: {

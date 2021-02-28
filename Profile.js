@@ -9,8 +9,8 @@ function renderRecipe(props) {
     imageURL = "{"+'"uri" '+':"'+imageURL+'"'+"}";
     return (
         <Card key={imageURL} style={{width: 400, marginBottom: 30}}>
-            <Card.Cover source={JSON.parse(imageURL)} />
-            <Card.Content>
+            <Card.Cover source={JSON.parse(imageURL)}  />
+            <Card.Content style={styles.container}>
                 <Card.Title title={props.strMeal} /> 
                 <Paragraph>{props.strCategory} | {props.strArea}</Paragraph>
             </Card.Content>
@@ -51,7 +51,7 @@ class Profile extends Component {
             if (data[0] == "") {
                 console.log("HERE")
                 return (
-                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', marginTop: 50}}>
+                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', marginTop: 50}} style={styles.container}>
                         <Button onPress={() => navigation.goBack()}>Back</Button>
                         <Title> {this.state.user['name']} </Title>
                         <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
@@ -63,7 +63,7 @@ class Profile extends Component {
                 console.log("HERE2")
                 return (
                 
-                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', marginTop: 50 }}>
+                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', marginTop: 50 }} style={styles.container}>
                         <Button onPress={() => navigation.goBack()}>Back</Button>
                         <Title> {this.state.user['name']} </Title>
                         <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
@@ -80,7 +80,7 @@ class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor:'#dcfae6',
     },
 })
 
