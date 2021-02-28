@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
 import {useForm, Controller} from 'react-hook-form';
@@ -21,7 +21,7 @@ export default function Register({navigation}) {
             firestore().collection('users').doc(user.user.uid).set({
                 name: data.nickname,
                 email: data.Email,
-                savedRecipes: [""]
+                savedRecipes: []
             })
         })
         .then(() => {
@@ -34,7 +34,7 @@ export default function Register({navigation}) {
 
     return (
         <View style={styles.container}>
-            <Title style={{textAlign: 'center'}}>Register</Title>
+            <Text style={styles.title}>Soulfood</Text>
             <Controller 
                 control={control}
                 defaultValue=""
@@ -60,7 +60,7 @@ export default function Register({navigation}) {
                         <TextInput 
                             label="Email"
                             autoCapitalize="none"
-                            style={styles.input}
+                            style={styles.input1}
                             value={value}
                             onChangeText={(value) => onChange(value)}
                         />
@@ -77,7 +77,7 @@ export default function Register({navigation}) {
                         <TextInput 
                             label="Password"
                             autoCapitalize="none"
-                            style={styles.input}
+                            style={styles.input2}
                             secureTextEntry
                             value={value}
                             onChangeText={(value) => onChange(value)}
@@ -91,15 +91,16 @@ export default function Register({navigation}) {
                 onPress={handleSubmit(submit)}
                 style={styles.button}
             >
-                Register
+             <Text style ={{color:'black'}}>Register</Text>
             </Button>
             <Button
                 mode="contained"
                 onPress={() => navigation.navigate("Login")}
-                style={styles.button}
+                style={styles.button1}
             >
-                Already have an account? 
+             <Text style ={{color:'black'}}>Have an account?</Text>
             </Button>
+            <Image style={styles.logo} source={{uri: 'https://static.thenounproject.com/png/1617024-200.png'}}></Image>
         </View>
     );
 }
@@ -110,25 +111,76 @@ const styles = StyleSheet.create({
         margin: 20,
         marginLeft: 0,
       },
+      logo: {
+        width: 100,
+        height:100,
+        position:'absolute',
+        top:260,
+        left: 160
+      },
+      title: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 60,
+        fontFamily: 'Papyrus',
+        position:'absolute',
+        top: 200,
+        left:80
+      },
       button: {
-        marginTop: 30,
-        color: 'white',
-        height: 40,
-        backgroundColor: '#ec5990',
-        borderRadius: 4,
+        padding:1,
+        backgroundColor:'#8de3ab',
+        position:'absolute',
+        width: 150,
+        bottom: 220,
+        right: 140,
+      },
+      button1: {
+        padding:1,
+        backgroundColor:'#8de3ab',
+        position:'absolute',
+        width: 222,
+        bottom: 150,
+        right: 100,
       },
       container: {
         flex: 1,
         justifyContent: 'center',
         paddingTop: 50,
         padding: 8,
-        backgroundColor: 'white',
+        backgroundColor: '#dcfae6',
       },
       input: {
+        borderWidth: 1,  
+        borderColor: 'black',
+        position:'absolute',
         backgroundColor: '#e6f8e8',
-        height: 70,
-        padding: 10,
-        marginTop: 20,
+        height: 50,
+        width:300,
+        top: '44%',
+        left:60,
+        borderRadius: 4,
+      },
+      input1: {
+        borderWidth: 1,  
+        borderColor: 'black',
+        position:'absolute',
+        backgroundColor: '#e6f8e8',
+        height: 50,
+        width:300,
+        top: '52%',
+        left:60,
+        borderRadius: 4,
+      },
+      input2: {
+        borderWidth: 1,  
+        borderColor: 'black',
+        position:'absolute',
+        backgroundColor: '#e6f8e8',
+        height: 50,
+        width:300,
+        top: '60%',
+        left:60,
         borderRadius: 4,
       },
   });

@@ -1,45 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground} from 'react-native';
-import { Button, Icon} from 'react-native-elements';
-import auth from '@react-native-firebase/auth'
+import { StyleSheet, Text, View, Image, ImageBackground, Button} from 'react-native';
+import {  Icon} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons';
-
-function logout() {
-    auth().signOut()
-    .then(() => console.log('User signed out!'));
-}
 
 export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}> Name of app</Text>
+        <Text style={styles.title}>Soulfood</Text>
       <View style={styles.buttonContainer}>
         <Button
            title="Login"
+           color="black"
            onPress={() => navigation.navigate("Login")}
            />
       </View>
       <View style={styles.button2Container}>
           <Button
             title="Sign up"
+            color="black"
             onPress={() => navigation.navigate("Register")}
           />
       </View>
-      {/* <View style={styles.button2Container}>
-          <Button
-            title="Log out"
-            onPress={() => logout()}
-          />
-      </View> */}
-      <View style={styles.iconContainer}>
-      <Icon
-              name="trash-bin"
-              size={40}
-              type='ionicon'
-              color="green"
-              />
-      </View>
-      <Text>Open up App.js to start working on your app!</Text>
+   <Image style={styles.logo} source={{uri: 'https://static.thenounproject.com/png/1617024-200.png'}}></Image>
     </View>
   );
 }
@@ -47,24 +29,44 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#dcfae6',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 50,
-    fontFamily: 'AmericanTypewriter-Bold'
+    fontSize: 60,
+    fontFamily: 'Papyrus',
+    position:'absolute',
+    top: 250
   },
   buttonContainer: {
+  borderRadius: 5,
+  borderWidth: 1,
+  borderColor: 'black',
+  padding:4,
+  backgroundColor:'#8de3ab',
   position:'absolute',
-  bottom: 150,
-  right: 50,
+  width: 100,
+  bottom: 280,
+  right: 250,
   },
   button2Container: {
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+    padding:4,
+    backgroundColor:'#8de3ab',
+    width: 100,
     position:'absolute',
-    bottom: 150,
-    left: 50,
+    bottom: 280,
+    left: 250,
   },
+  logo: {
+    width: 100,
+    height:100,
+    position:'absolute',
+    top:340
+  }
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useForm, Controller} from 'react-hook-form';
 import {TextInput, Switch, Button, Title} from 'react-native-paper';
@@ -27,7 +27,8 @@ export default function Login({navigation}) {
 
     return (
         <View style={styles.container}>
-            <Title style={{textAlign: 'center'}}>Log in</Title>
+            <Text style={styles.title}>Soulfood</Text>
+            <Image style={styles.logo} source={{uri: 'https://static.thenounproject.com/png/1617024-200.png'}}></Image>
             <Controller 
                 control={control}
                 defaultValue=""
@@ -54,7 +55,7 @@ export default function Login({navigation}) {
                         <TextInput 
                             label="Password"
                             autoCapitalize="none"
-                            style={styles.input}
+                            style={styles.input1}
                             secureTextEntry
                             value={value}
                             onChangeText={(value) => onChange(value)}
@@ -68,14 +69,15 @@ export default function Login({navigation}) {
                 onPress={handleSubmit(submit)}
                 style={styles.button}
             >
-                Log in
+               <Text style={{color:'black'}}> Log in </Text>
             </Button>
             <Button
                 mode="contained"
+                color="black"
                 onPress={() => navigation.navigate("Register")}
-                style={styles.button}
+                style={styles.button1}
             >
-                Don't have an account? Sign up here
+                <Text style ={{color:'black'}}>Don't have an account?</Text>
             </Button>
         </View>
     );
@@ -87,25 +89,69 @@ const styles = StyleSheet.create({
         margin: 20,
         marginLeft: 0,
       },
+      title: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 60,
+        fontFamily: 'Papyrus',
+        position:'absolute',
+        top: 200,
+        left:70
+      },
+      logo: {
+        width: 100,
+        height:100,
+        position:'absolute',
+        top:260,
+        left:150
+      },
       button: {
-        marginTop: 30,
+        position:'absolute',
+        bottom: 240,
+        width:180,
+        left:113,
         color: 'white',
-        height: 40,
-        backgroundColor: '#ec5990',
+        padding: 1,
+        backgroundColor:'#8de3ab',
+        borderRadius: 4,
+      },
+      button1: {
+        position:'absolute',
+        bottom: 180,
+        width:250,
+        left:81,
+        color: 'white',
+        padding: 1,
+        backgroundColor:'#8de3ab',
         borderRadius: 4,
       },
       container: {
         flex: 1,
+        backgroundColor:'#dcfae6',
         justifyContent: 'center',
         paddingTop: 50,
         padding: 8,
-        backgroundColor: 'white',
       },
       input: {
+        borderWidth: 1,  
+        borderColor: 'black',
+        position:'absolute',
         backgroundColor: '#e6f8e8',
-        height: 70,
-        padding: 10,
-        marginTop: 20,
+        height: 50,
+        width:290,
+        top: '50%',
+        left:60,
+        borderRadius: 4,
+      },
+      input1: {
+        borderWidth: 1,  
+        borderColor: 'black',
+        position:'absolute',
+        backgroundColor: '#e6f8e8',
+        height: 50,
+        width:290,
+        top: '60%',
+        left:60,
         borderRadius: 4,
       },
   });
