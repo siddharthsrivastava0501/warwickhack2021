@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useForm, Controller} from 'react-hook-form';
-import {TextInput, Switch, Button} from 'react-native-paper';
+import {TextInput, Switch, Button, Title} from 'react-native-paper';
 
-export default function Login() {
+export default function Login({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
 
     const onChange = arg => {
@@ -13,24 +13,37 @@ export default function Login() {
         };
     };;
 
-    const submit = (data) => console.log(data)
+    const submit = (data) => {
+        console.log(data, data.password)
+        auth().signInWithEmailAndPassword(data.Email, data.password)
+        .then(() => {
+            console.log("Successful sign in");
+            navigation.navigate("Home");
+        })
+        .catch((error) => {
+            console.log('That email address is invalid!');
+        })
+    }
 
     return (
         <View style={styles.container}>
+            <Title style={{textAlign: 'center'}}>Log in</Title>
             <Controller 
                 control={control}
                 defaultValue=""
-                name="username"
+                name="Email"
                 render = {({onChange, value}) => (
                     <>
                         <TextInput 
-                            label="Username"
+                            label="Email"
+                            autoCapitalize="none"
                             style={styles.input}
                             value={value}
                             onChangeText={(value) => onChange(value)}
                         />
                     </>
                 )}
+                rules={{required: true}}
             />
              <Controller 
                 control={control}
@@ -40,20 +53,29 @@ export default function Login() {
                     <>
                         <TextInput 
                             label="Password"
+                            autoCapitalize="none"
                             style={styles.input}
-                            secureTextEntry
+                            //secureTextEntry
                             value={value}
                             onChangeText={(value) => onChange(value)}
                         />
                     </>
                 )}
+                rules={{required: true}}
             />
             <Button
                 mode="contained"
                 onPress={handleSubmit(submit)}
                 style={styles.button}
             >
-                Submit
+                Log in
+            </Button>
+            <Button
+                mode="contained"
+                onPress={() => navigation.navigate("Register")}
+                style={styles.button}
+            >
+                Don't have an account? Sign up here
             </Button>
         </View>
     );
@@ -81,7 +103,7 @@ const styles = StyleSheet.create({
       },
       input: {
         backgroundColor: '#e6f8e8',
-        height: 40,
+        height: 70,
         padding: 10,
         marginTop: 20,
         borderRadius: 4,

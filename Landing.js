@@ -10,12 +10,13 @@ export default function Login({ navigation }) {
       <View style={styles.buttonContainer}>
         <Button
            title="Login"
+           onPress={() => navigation.navigate("Login")}
            />
       </View>
       <View style={styles.button2Container}>
           <Button
             title="Sign up"
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Register")}
           />
       </View>
       <View style={styles.iconContainer}>
