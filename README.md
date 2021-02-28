@@ -17,6 +17,7 @@ This should install a lot of stuff.
 cd ios && pod install
 ```
 4. ```cd``` into the main folder and run ```npx react-native run-ios```
+
 If you are running on Android, I have no idea how it works.
 5. Common issues:
 - Podfile issues:
