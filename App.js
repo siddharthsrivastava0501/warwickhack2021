@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ImageBackground, CircularProgress} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import auth from '@react-native-firebase/auth'
 
 import { Button, Icon} from 'react-native-elements';
@@ -32,7 +32,11 @@ export default function App() {
         return auth().onAuthStateChanged(onAuthStateChanged);
     }, [])
 
-    if (!user) {
+    if (loading) {
+      return <ActivityIndicator />
+    }
+
+    if (!user && !loading) {
         console.log("Not logged in")
         return (
           <NavigationContainer>
@@ -54,7 +58,7 @@ export default function App() {
                 <Stack.Screen name="Landing" component={Landing} /> 
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Profile" component={Profile}/>
+                <Stack.Screen name="Profile" component={Profile} initialParams={{'user': user}}/>
                 <Stack.Screen name="Home" component={Menu} />
             </Stack.Navigator>
         </NavigationContainer>

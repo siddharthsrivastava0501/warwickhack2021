@@ -25,12 +25,12 @@ export default function Login({ navigation }) {
             onPress={() => navigation.navigate("Register")}
           />
       </View>
-      <View style={styles.button2Container}>
+      {/* <View style={styles.button2Container}>
           <Button
             title="Log out"
             onPress={() => logout()}
           />
-      </View>
+      </View> */}
       <View style={styles.iconContainer}>
       <Icon
               name="trash-bin"
@@ -67,7 +67,4 @@ const styles = StyleSheet.create({
     bottom: 150,
     left: 50,
   },
-  iconContainer: {
-    
-  }
 });

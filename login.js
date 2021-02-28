@@ -6,7 +6,7 @@ import {TextInput, Switch, Button, Title} from 'react-native-paper';
 
 export default function Login({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
-    
+
     const onChange = arg => {
         return {
             value: arg.nativeEvent.text,
@@ -21,7 +21,7 @@ export default function Login({navigation}) {
             navigation.navigate("Home");
         })
         .catch((error) => {
-            console.log('That email address is invalid!');
+            console.log(error);
         })
     }
 

@@ -2,7 +2,7 @@ import React, {useState, Component} from 'react';
 import {Text, ActivityIndicator, StyleSheet} from 'react-native';
 import {Title, Card, Chip, Paragraph, Button} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
-import { ScrollView } from 'react-native';
+import { ScrollView,View } from 'react-native';
 
 function renderRecipe(props) {
     var imageURL = props.strMealThumb;
@@ -28,28 +28,50 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
-        firestore().collection('users').doc("5WnnwHmfvsbefSWjicvzSUlGyul1").get().then(documentSnapshot => {
+        var user = this.props.route.params.user.uid
+        // 5WnnwHmfvsbefSWjicvzSUlGyul1
+        firestore().collection('users').doc(user).get().then(documentSnapshot => {
             this.setState({user: documentSnapshot.data(), isLoading: false});
+        })
+        .catch((e) => {
+            console.log(e)
         })
     }
 
     render() {
         const {navigation} = this.props;
         if (this.state.isLoading) {
-            return  <ActivityIndicator size="large" color="#00ff00" />
+            return  (
+            <View>
+                <ActivityIndicator size="large" color="#000000" />
+            </View>)
         } else {
             var data = this.state.user.savedRecipes;
-            console.log(this.state.user.email)
-            return (
-                <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Button onPress={() => navigation.goBack()}>Back</Button>
-                    <Title> {this.state.user['email']} </Title>
-                    <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
-                    {data.map((element) => renderRecipe(JSON.parse(element).meals[0]))}
-                </ScrollView>
+            console.log(data.length)
+            if (data[0] == "") {
+                console.log("HERE")
+                return (
+                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', marginTop: 50}}>
+                        <Button onPress={() => navigation.goBack()}>Back</Button>
+                        <Title> {this.state.user['name']} </Title>
+                        <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
+                        <Text style={{marginBottom: 20}}> Your list is empty. Add some items! </Text>
+                    </ScrollView>
+                    
+                )
+            } else {
+                console.log("HERE2")
+                return (
                 
-            )
+                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', marginTop: 50 }}>
+                        <Button onPress={() => navigation.goBack()}>Back</Button>
+                        <Title> {this.state.user['name']} </Title>
+                        <Text style={{marginBottom: 20}}> {this.state.user['email']} </Text>
+                        {data.map((element) => renderRecipe(JSON.parse(element).meals[0]))}
+                    </ScrollView>
+                    
+                )
+            }
         }
         
     }

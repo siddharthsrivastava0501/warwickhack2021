@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import {useForm, Controller} from 'react-hook-form';
 import {TextInput, Switch, Button, Title} from 'react-native-paper';
 
-export default function Login({navigation}) {
+export default function Register({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
 
     const onChange = arg => {
@@ -13,7 +13,17 @@ export default function Login({navigation}) {
         };
     };;
 
-    const submit = (data) => console.log(data)
+    const submit = (data) => {
+        console.log(data.Email, data.password)
+        auth().createUserWithEmailAndPassword(data.Email, data.password)
+        .then(() => {
+        console.log("Successful sign in");
+        navigation.navigate("Home");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -37,11 +47,12 @@ export default function Login({navigation}) {
             <Controller 
                 control={control}
                 defaultValue=""
-                name="username"
+                name="Email"
                 render = {({onChange, value}) => (
                     <>
                         <TextInput 
-                            label="Username"
+                            label="Email"
+                            autoCapitalize="none"
                             style={styles.input}
                             value={value}
                             onChangeText={(value) => onChange(value)}
@@ -58,6 +69,7 @@ export default function Login({navigation}) {
                     <>
                         <TextInput 
                             label="Password"
+                            autoCapitalize="none"
                             style={styles.input}
                             secureTextEntry
                             value={value}
@@ -107,7 +119,7 @@ const styles = StyleSheet.create({
       },
       input: {
         backgroundColor: '#e6f8e8',
-        height: 40,
+        height: 70,
         padding: 10,
         marginTop: 20,
         borderRadius: 4,
